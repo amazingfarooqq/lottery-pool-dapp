@@ -2,18 +2,17 @@ import React from 'react'
 import {
   StarIcon, CurrencyDollarIcon, ArrowPathIcon, ArrowUturnDownIcon
 } from '@heroicons/react/24/solid'
-import { useContract, useContractWrite, useContractRead, useChainId } from '@thirdweb-dev/react'
+import { useContract, useContractWrite, useContractRead, useChainId, ChainId } from '@thirdweb-dev/react'
 import { ethers } from 'ethers'
-import { currency } from "../constants"
+import { currency, requiredChainId } from "../constants"
 import toast from 'react-hot-toast'
 
 function AdminControls() {
   
-  let reqchaidid = process.env.NEXT_PUBLIC_CHAIN_ID;
   const chainid = useChainId()
 
   const checkChaidId = () => {
-    if(chainid != reqchaidid){
+    if(chainid != requiredChainId){
       toast.error("Change your wallet network ")
       return false
     }else {

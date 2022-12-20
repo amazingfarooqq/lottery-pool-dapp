@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useAddress, useContract, useMetamask, useDisconnect, useContractRead, useContractWrite, useChainId } from '@thirdweb-dev/react'
+import { useAddress, useContract, useMetamask, useDisconnect, useContractRead, useContractWrite, useChainId, ChainId } from '@thirdweb-dev/react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Header from '../components/Header'
@@ -7,7 +7,7 @@ import Login from '../components/Login'
 import Loading from '../components/Loading'
 import Footer from '../components/Footer'
 import { ethers } from 'ethers'
-import { currency } from "../constants"
+import { currency, requiredChainId } from "../constants"
 import CountdownTimer from '../components/CountdownTimer'
 import toast from "react-hot-toast"
 import Marquee from "react-fast-marquee";
@@ -16,11 +16,11 @@ import AdminControls from '../components/AdminControls'
 const Home: NextPage = () => {
   const address = useAddress()
 
-  let reqchaidid = process.env.NEXT_PUBLIC_CHAIN_ID;
+
   const chainid = useChainId()
   
   const checkChaidId = () => {
-    if(chainid != reqchaidid){
+    if(chainid != requiredChainId){
       toast.error("Change your wallet network")
       return false
     }else {
@@ -213,7 +213,6 @@ const Home: NextPage = () => {
           </div >
         </div>
       </div>
-      <Footer />
     </div >
   )
 }
