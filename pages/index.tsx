@@ -13,11 +13,24 @@ import toast from "react-hot-toast"
 import Marquee from "react-fast-marquee";
 import LastWinnerMarquee from '../components/LastWinnerMarquee'
 import AdminControls from '../components/AdminControls'
+import { formatEther } from 'ethers/lib/utils'
+
+
 const Home: NextPage = () => {
   const address = useAddress()
-
-
   const chainid = useChainId()
+
+  const [maticToUsdt, setmaticToUsdt] = useState(0)
+
+  console.log(maticToUsdt);
+  
+
+
+  useEffect(() => {
+    fetch('https://min-api.cryptocompare.com/data/price?fsym=MATIC&tsyms=USD')
+    .then((response) => response.json())
+    .then((data) => setmaticToUsdt(data.USD));
+  },[])
   
   const checkChaidId = () => {
     if(chainid != requiredChainId){
@@ -140,8 +153,9 @@ const Home: NextPage = () => {
               <div className='stats'>
                 <h2 className='text-sm'>Total Pool</h2>
                 <p className='text-xl'>
-                  {pricePerTicket && ethers.utils.formatEther(pricePerTicket.toString())}{" "}{currency}
+                  {pricePerTicket && formatEther(pricePerTicket.toString())}{" "}{currency} 
                 </p>
+                <p>{`( 1 MATIC = ${maticToUsdt} USDT)`}</p>
               </div>
               <div className='stats'>
                 <h2 className='text-sm'>Tickets Remaining</h2>
