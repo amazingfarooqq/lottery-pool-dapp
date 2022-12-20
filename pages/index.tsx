@@ -155,7 +155,7 @@ const Home: NextPage = () => {
                 <p className='text-xl'>
                   {pricePerTicket && formatEther(pricePerTicket.toString())}{" "}{currency} 
                 </p>
-                <p>{`( 1 MATIC = ${maticToUsdt} USDT)`}</p>
+                <p>{`= ${maticToUsdt * (pricePerTicket && formatEther(pricePerTicket.toString()))} USDT`}</p>
               </div>
               <div className='stats'>
                 <h2 className='text-sm'>Tickets Remaining</h2>
